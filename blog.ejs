@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+   
+    <title>Document</title>
+</head>
+<body class="container bg-secondary">
+    <div class=" bg-light">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom " >
+            <a href="/" class="d-flex align-items-center  text-dark text-decoration-none">
+              <h1 class="display-1 fw-bold">Simple header</h1>
+            </a>
+        </header>
+        <main class="container col-md-8 col-lg-7" >
+            <h1 class="fs-1 fw-bold"><%= data.title%></h1>
+            <div>By ELIJAH M. Published <%= data.time%></div>
+            <img src="<%= data.imgThumbnail%>" class="img-fluid my-3" alt="" >
+            <p class="text-break lh-lg" style="text-indent: 50px;"><%= data.content%></p>
+        </main>
+        <div class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom" >
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none container col-md-8 col-lg-7">
+              <span class="fs-4 ">Comments</span>
+            </a>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+              <div class="card-body p-4">
+                <%# for form %>
+                <form class="form-outline mb-4" method="POST" action="/blog/<%= data._id%>/newComment">
+                  <label for="commentEmail">Email address:</label>
+                  <input name="commentEmail"type="email" class="form-control" id="commentEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small><br>
+                  <label for="commentContent">Your Comment:</label>
+                  <textarea name="commentContent"class="form-control" id="commentContent" rows="3" required style="resize: none;" ></textarea>
+                  
+                  <input type="submit" class="btn btn-secondary my-3" value="Add Comment">
+                </form>
+                <%# comment %>
+                <% if (!data.comments.length==0) { %>
+                <% for(var i=0; i<data.comments.length; i++) {%>
+                <div class="card mb-4">
+                  <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+                      <div class="d-flex flex-row align-items-center">
+                        <img src="https://img.icons8.com/ios-filled/512/name.png" alt="avatar" width="25"
+                          height="25" />
+                        <p class="mb-0 ms-2"><%= data.comments[i].commentEmail%></p>
+                      </div>
+                      <div class="d-flex flex-row align-items-center text-muted">
+                        <%= data.comments[i].commentTime%>
+                      </div>
+                    </div>
+                    <p style="margin-top: 1rem; margin-bottom: 0;"><%= data.comments[i].commentContent%></p>
+                    
+                  </div>
+                </div>
+                <% } %>
+                <%} else { %>
+                  <p> No comments yet. </p>
+                <% } %>
+                <%# comment %>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    
+    
+</body>
+</html>
