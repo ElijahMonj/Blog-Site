@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 
     console.log("-----------")
     async function getValueAsync() {
-      let coll = mongoose.connection.db.collection("blogs");
+      let coll = await mongoose.connection.db.collection("blogs");
       let data = await coll.find({}).toArray();
       //console.log(data)
       res.render("index", { data: data});
