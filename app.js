@@ -58,7 +58,7 @@ app.get('/blog/:blogID',(req,res)=>{
   
   async function run() {
     try {
-      let coll = mongoose.connection.db.collection("blogs");
+      let coll =await mongoose.connection.db.collection("blogs");
       
       const query = { _id: ObjectID(req.params.blogID) };
       const data = await coll.findOne(query);
@@ -80,7 +80,7 @@ app.post('/blog/:id/newComment', function(req,res){
   console.log("--CHANGING--")
   async function run() {
     try {
-      let coll = mongoose.connection.db.collection("blogs");
+      let coll = await mongoose.connection.db.collection("blogs");
       
       const query = { _id: ObjectID(req.params.id) };
       let data = await coll.findOne(query);
