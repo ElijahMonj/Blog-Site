@@ -42,7 +42,7 @@
                   <input type="submit" class="btn btn-secondary my-3" value="Add Comment">
                 </form>
                 <%# comment %>
-                <% if (!data.comments.length==0) { %>
+                <% if (!(data.comments.length==0)) { %>
                 <% for(var i=0; i<data.comments.length; i++) {%>
                 <div class="card mb-4">
                   <div class="card-body">
