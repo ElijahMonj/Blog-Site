@@ -18,20 +18,20 @@ const  ObjectID = require('mongodb').ObjectId;
 app.set("views", __dirname);
 app.set("view engine", "ejs");
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
 
-    console.log("-----------")
-    async function getValueAsync() {
+    try {
       let coll = await mongoose.connection.collection("blogs");
-      let data = await coll.find({}).toArray();
+      let data = await coll.find().toArray();
       //console.log(data)
       setTimeout(refresh, 500);
       function refresh(){
         res.render("index", { data: data});
       }
-      
+    } catch (error) {
+      throw error
     }
-    getValueAsync()
+    
 
 
     /* FOR API
