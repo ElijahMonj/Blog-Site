@@ -10,7 +10,7 @@ const mongoose=require('mongoose')
 
 
 mongoose.connect("mongodb+srv://admin:admin@cluster0.3hfbcxb.mongodb.net/?retryWrites=true&w=majority", {useNewUrlParser:true,dbName:'Blog-API'})
-const db=mongoose.connection
+let coll = mongoose.connection.collection("blogs");
 
 const  ObjectID = require('mongodb').ObjectId;
 
@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 
     console.log("-----------")
     async function getValueAsync() {
-      let coll = await mongoose.connection.db.collection("blogs");
+      
       let data = await coll.find({}).toArray();
       //console.log(data)
       res.render("index", { data: data});
@@ -58,7 +58,7 @@ app.get('/blog/:blogID',(req,res)=>{
   
   async function run() {
     try {
-      let coll =await mongoose.connection.db.collection("blogs");
+      
       
       const query = { _id: ObjectID(req.params.blogID) };
       const data = await coll.findOne(query);
@@ -80,7 +80,7 @@ app.post('/blog/:id/newComment', function(req,res){
   console.log("--CHANGING--")
   async function run() {
     try {
-      let coll = await mongoose.connection.db.collection("blogs");
+     
       
       const query = { _id: ObjectID(req.params.id) };
       let data = await coll.findOne(query);
