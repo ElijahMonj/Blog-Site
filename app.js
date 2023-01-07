@@ -2,7 +2,7 @@ const express = require('express')
 
 var app = express()
 const request = require('request');
-const data = "http://localhost:3000/blogs/"
+//const data = "http://localhost:3000/blogs/"
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -11,6 +11,7 @@ const mongoose=require('mongoose')
 
 mongoose.connect("mongodb+srv://admin:admin@cluster0.3hfbcxb.mongodb.net/?retryWrites=true&w=majority", {useNewUrlParser:true,dbName:'Blog-API'})
 let coll = mongoose.connection.collection("blogs");
+
 
 const  ObjectID = require('mongodb').ObjectId;
 
@@ -24,9 +25,11 @@ app.get('/', (req, res) => {
       
       let data = await coll.find({}).toArray();
       //console.log(data)
-      res.render("index", { data: data});
+      return data
     }
-    getValueAsync()
+    getValueAsync().then(
+      function(data) {res.render("index", { data: data});}
+    );
 
 
     /* FOR API
